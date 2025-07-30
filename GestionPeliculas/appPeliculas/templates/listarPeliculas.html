@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="margin: 0 auto">
+           <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Título</th>
+                    <th>Protagonista</th>
+                    <th>Duración</th>
+                    <th>Resumen</th>
+                    <th>Foto</th>
+                    <th>Género</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pel in Peliculas %}
+                <tr>
+                    <td>{{pel.pelCodigo}}</td>
+                    <td>{{pel.pelTitulo}}</td>
+                    <td>{{pel.pelProtagonista}} </td>
+                    <td>{{pel.pelDuracion}}</td>
+                    <td>{{pel.pelResumen}}</td>
+                    <td>
+                        <img src="/media/{{pel.pelFoto}}" alt="" width="10" height="10">
+                    </td>
+                    
+                    <td>{{pel.pelGenero.genNombre}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+           </table>
+        </div>
+    </div>
+</body>
+</html>
