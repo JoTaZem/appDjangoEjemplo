@@ -115,6 +115,9 @@ def actualizarPelicula(request):
 def eliminarPelicula(request, id):
     try:
         peliculaEliminar = Pelicula.objects.get(pk=id)
+        foto = peliculaEliminar.pelFoto
+        if foto:
+            os.remove(os.path.join(settings.MEDIA_ROOT + "/" + str(foto)))
         peliculaEliminar.delete()
         mensaje = "Pelicula eliminada correctamente"
     except Error as error:
