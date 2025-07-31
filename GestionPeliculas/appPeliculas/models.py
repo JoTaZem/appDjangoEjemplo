@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Genero(models.Model):
     genNombre = models.CharField(max_length=50, unique = True)
-    def __str__(self):
+    def __str__(self) -> str:
         return self.genNombre
 
 class Pelicula(models.Model):
@@ -15,6 +15,6 @@ class Pelicula(models.Model):
     pelFoto = models.ImageField(upload_to= f"fotos/", null=True, blank=True)
     pelGenero = models.ForeignKey(Genero, on_delete=models.PROTECT)
 
-    def __str__(self):
+    def __str__(self)->str:
         return self.pelTitulo
 

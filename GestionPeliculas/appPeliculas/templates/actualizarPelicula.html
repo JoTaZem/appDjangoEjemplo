@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <title>agregar un Genero</title>
+</head>
+<body>
+   <div class="container">
+        <div class="margin: 0 auto">
+            <h2 class="text-center fw-bold">ACTUALIZAR UNA PELICULA</h2>
+            <form action="/actualizarPelicula/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mt-2">
+                    <label for="txtCodigo">Código</label>
+                    <input type="text" id="txtCodigo" name="txtCodigo" value="{{pelicula.pelCodigo}}" required>
+                </div>
+                <div class="mt-2">
+                    <label for="txtTitulo">Título</label>
+                    <input type="text" id="txtTitulo" name="txtTitulo" value="{{pelicula.pelTitulo}}" required>
+                </div>
+                <div class="mt-2">
+                    <label for="txtProtagonista">Protagonista</label>
+                    <input type="text" id="txtProtagonista" name="txtProtagonista" 
+                    value="{{pelicula.pelProtagonista}}" required>
+                </div>
+                <div class="mt-2">
+                    <label for="txtDuracion">Duración (minutos)</label>
+                    <input type="number" id="txtDuracion" name="txtDuracion" value="{{pelicula.pelDuracion}}" required>
+                </div>
+                <div class="mt-2">
+                    <label for="txtResumen">Resumen</label>
+                    <textarea id="txtResumen" name="txtResumen" rows="3" value="{{pelicula.pelResumen}}" required></textarea>
+                </div>
+                <div class="mt-2">
+                    <label for="fileFoto">Foto</label>
+                    <input type="file" id="fileFoto" name="fileFoto" required>
+                </div>
+                <div class="mt-2">
+                    <label for="cbGenero">Género</label>
+                    <select id="cbGenero" name="cbGenero" required>
+                        <option value="" disabled selected>Seleccione un género</option>
+                        {% for genero in generos %}
+                            {% if genero.id == pelicula.pelGenero.id %}
+                                <option value="{{ genero.id }}" selected>{{ genero.genNombre }}</option>
+                            {% else %}
+                                <option value="{{ genero.id }}">{{ genero.genNombre }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-primary">Actualizar Pelicula</button>
+                </div>
+                <input type="hidden" name="idPelicula" value="{{ pelicula.id }}">
+                {% if mensaje %}
+                    <div class="alert alert-success mt-2">{{ mensaje }}</div>
+                {% endif %}
+                
+            </form>     
+        </div>
+    </div>
+</body>
+</html>
