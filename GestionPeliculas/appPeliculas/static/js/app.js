@@ -1,4 +1,6 @@
 
+
+
 /**Function eliminarPelicula(id) description...
  * funcion que verifica si desea eliminar una película segun id escogido
  *
@@ -16,4 +18,23 @@ function eliminarPelicula(id){
             location.href = "/eliminarPelicula/" + id;
         }
     });
+}
+
+function mostrarImagen(evento){
+    alert("sadasd")
+    // Obtener el archivo de la entrada de archivo
+   const imagenPelicula = document.querySelector("#imagenPelicula");
+   const files = evento.target.files;
+   const archivo = files[0];
+   const url = URL.createObjectURL(archivo);
+    // Establecer la URL de la imagen en el elemento de imagen
+    let filename = archivo.name;
+    let extension = filename.split('.').pop();
+    extension = extension.toLowerCase();
+    if(extension !== "jpg" && extension !== "jpeg" && extension !== "png"){
+        fileFoto.value = "";
+        Swal.fire("seleccionar","la imagen debe ser jpg, jpeg o png","error");
+    } else {
+        imagenPelicula.setAttribute("src", url);
+    }
 }

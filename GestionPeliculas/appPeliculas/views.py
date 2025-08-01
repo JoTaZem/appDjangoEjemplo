@@ -8,12 +8,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
-
 def inicio(request):
     return render(request, 'inicio.html')
 
 #CRUD Generos
-@csrf_exempt
+
+
 def agregarGenero(request):
     try:
         #recibir el nombre del genero en una variable local
@@ -30,19 +30,20 @@ def agregarGenero(request):
     retorno = {"mensaje": mensaje}
     return render(request,"agregarGenero.html", retorno)
 
-@csrf_exempt
+
 def vistaAgregarGenero(request):
     return render(request, 'agregarGenero.html')
 
 
-@csrf_exempt
 def listarGeneros(request):
     generos = Genero.objects.all()
     retorno = {"generos":list(generos)}
     return render(request,"listarGeneros.html", retorno)
 
+
 #CRUD Peliculas
-@csrf_exempt
+
+
 def listarPeliculas(request):
     peliculas = Pelicula.objects.all()
     retorno = {"Peliculas":list(peliculas)}
@@ -115,11 +116,14 @@ def actualizarPelicula(request):
 def eliminarPelicula(request, id):
     try:
         peliculaEliminar = Pelicula.objects.get(pk=id)
-        foto = peliculaEliminar.pelFoto
-        if foto:
+        if peliculaEliminar is None:
+            mensaje = f"Pelicula no encontrada con el id {id}.."
+        else:
+            foto = peliculaEliminar.pelFoto
+            peliculaEliminar.delete()
             os.remove(os.path.join(settings.MEDIA_ROOT + "/" + str(foto)))
-        peliculaEliminar.delete()
-        mensaje = "Pelicula eliminada correctamente"
+            mensaje = f"Pelicula con id={id} eliminada correctamente..."
+
     except Error as error:
         mensaje = str(error)
     retorno = {"mensaje": mensaje}
